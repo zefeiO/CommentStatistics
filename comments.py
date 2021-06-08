@@ -7,7 +7,7 @@ from config import Config
 
 class CommentsFetcher:   
     def __init__(self, video_url):
-        self.url = video_url
+        self.url = "https:" + video_url
     
     def get_full_html(self):
         option = Options()
@@ -16,7 +16,7 @@ class CommentsFetcher:
         driver.get(self.url)
 
         action = TouchActions(driver)
-        action.scroll(0, 1000)
+        action.scroll(0, 10000)
         time.sleep(5)
 
         item = driver.find_element_by_class_name("loading-state")

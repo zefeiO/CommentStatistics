@@ -1,6 +1,7 @@
 import math
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
 import time
 from config import Config
 
@@ -23,16 +24,18 @@ class Asouler:
         # get total number of pages
         video_num = int(driver.find_element_by_class_name("count").text)
         page_num = math.ceil(video_num/30)
-        driver.close()
+        driver.find_element_by_tag_name("body").send_keys(Keys.CONTROL + "w")
+        #driver.close()
 
         # get all video links
         for i in range(1, page_num + 1):
-            driver.get(self.home_page + "/video?tid=0&page=" + i + "&keyword=&order=pubdate")
+            driver.get(self.home_page + "/video?tid=0&page=" + str(i) + "&keyword=&order=pubdate")
+            time.sleep(5)
             elements = driver.find_elements_by_class_name("cover")
             for element in elements:
                 link = element.get_attribute("href")
                 if link not in self.video_links:
                     self.video_links.append(link)
-            driver.close()
-        
+            driver.find_element_by_tag_name("body").send_keys(Keys.CONTROL + "w")
+            #driver.close()
         driver.quit()

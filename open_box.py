@@ -7,11 +7,12 @@ from config import Config
 HOME = Config.DIANA
 DIR = "Diana"
 
-def download_all():
+def download_all(video_list: list):
     index = 1
-    for link in waifu.video_links:
+    for link in video_list:
+        print(link)
         video = CommentsFetcher(video_url=link)
-        with open("./comments/" + DIR + "/" + index + ".txt", "w") as f:
+        with open("./comments/" + DIR + "/" + str(index) + ".txt", "w") as f:
             f.write(video.get_full_html())
         index += 1
 
@@ -30,7 +31,7 @@ if __name__ == "__main__":
     waifu.get_videos()
 
     # Download all html source codes (fully loaded)
-    download_all()
+    download_all(waifu.video_links)
 
     # Count the number of each emoji found in files
     result = dict()

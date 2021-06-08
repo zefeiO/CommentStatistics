@@ -2,8 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.common.touch_actions import TouchActions
 from selenium.webdriver.chrome.options import Options
 import time
+from config import PATH
 
-PATH = "D:\projects\scrawling\driver\chromedriver.exe"
 
 class CommentsFetcher:   
     def __init__(self, video_url):
@@ -25,5 +25,5 @@ class CommentsFetcher:
             action.perform()
             time.sleep(1)
             item = driver.find_element_by_class_name("loading-state")
-
+        driver.quit()
         return driver.page_source

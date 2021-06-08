@@ -1,3 +1,9 @@
+import math
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+import time
+from config import PATH
+
 class Asouler:
     def __init__(self, home_page):
         self.video_links = []
@@ -8,4 +14,25 @@ class Asouler:
         get all the urls for all videos uploaded by the asouler
         then update self.video_links
         """
-        pass
+        option = Options()
+        option.add_experimental_option('w3c', False)
+        driver = webdriver.Chrome(executable_path=PATH, options=option)
+        driver.get(self.home_page + "/video")
+        time.sleep(5)
+
+        # get total number of pages
+        video_num = int(driver.find_element_by_class_name("count").text)
+        page_num = math.ceil(video_num/30)
+        driver.close()
+
+        # get all video links
+        for i in range(1, page_num + 1):
+            driver.get(self.home_page + "/video?tid=0&page=" + i + "&keyword=&order=pubdate")
+            elements = driver.find_elements_by_class_name("cover")
+            for element in elements:
+                link = element.get_attribute("href")
+                if link not in self.video_links:
+                    self.video_links.append(link)
+            driver.close()
+        
+        driver.quit()

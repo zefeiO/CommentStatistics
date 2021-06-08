@@ -1,5 +1,3 @@
-
-
 class Config:
     PATH = "D:\projects\scrawling\driver\chromedriver.exe"
 

@@ -2,7 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.touch_actions import TouchActions
 from selenium.webdriver.chrome.options import Options
 import time
-from config import PATH
+from config import Config
 
 
 class CommentsFetcher:   
@@ -12,7 +12,7 @@ class CommentsFetcher:
     def get_full_html(self):
         option = Options()
         option.add_experimental_option('w3c', False)
-        driver = webdriver.Chrome(executable_path=PATH, options=option)
+        driver = webdriver.Chrome(executable_path=Config.PATH, options=option)
         driver.get(self.url)
 
         action = TouchActions(driver)

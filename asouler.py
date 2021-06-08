@@ -2,7 +2,7 @@ import math
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time
-from config import PATH
+from config import Config
 
 class Asouler:
     def __init__(self, home_page):
@@ -16,7 +16,7 @@ class Asouler:
         """
         option = Options()
         option.add_experimental_option('w3c', False)
-        driver = webdriver.Chrome(executable_path=PATH, options=option)
+        driver = webdriver.Chrome(executable_path=Config.PATH, options=option)
         driver.get(self.home_page + "/video")
         time.sleep(5)
 

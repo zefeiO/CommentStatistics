@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.touch_actions import TouchActions
 from selenium.webdriver.chrome.options import Options
+from urllib3.exceptions import MaxRetryError
 import time
 from config import Config
 
@@ -17,13 +18,21 @@ class CommentsFetcher:
 
         action = TouchActions(driver)
         action.scroll(0, 10000)
-        time.sleep(5)
-
+        # 手动登录
+        #time.sleep(10)
+        driver.get(self.url)
+        time.sleep(3)
         item = driver.find_element_by_class_name("loading-state")
 
+        
         while item.text != "没有更多评论":
-            action.perform()
-            time.sleep(1)
-            item = driver.find_element_by_class_name("loading-state")
+            try:
+                action.perform()
+                time.sleep(1)
+                item = driver.find_element_by_class_name("loading-state")
+            except MaxRetryError:
+                time.sleep(60)
+
+        html = driver.page_source
         driver.quit()
-        return driver.page_source
+        return html

@@ -12,7 +12,7 @@ def download_all(video_list: list):
     for link in video_list:
         print(link)
         video = CommentsFetcher(video_url=link)
-        with open("./comments/" + DIR + "/" + str(index) + ".txt", "w") as f:
+        with open("./comments/" + DIR + "/" + str(index) + ".txt", "w", encoding="utf-8") as f:
             f.write(video.get_full_html())
         index += 1
 

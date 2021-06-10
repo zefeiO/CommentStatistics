@@ -23,8 +23,9 @@ def print_ten_most_frequent(result: dict):
     i = 0
     while i < 10:
         max_key = get_max_key(result)
-        print(max_key + ": " + result.pop(max_key))
+        print(max_key + ": " + str(result.pop(max_key)))
         i += 1
+
 
 if __name__ == "__main__":
     waifu = Asouler(home_page=HOME)
